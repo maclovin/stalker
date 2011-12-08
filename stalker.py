@@ -58,12 +58,12 @@ def start(argv):
 			engine = arg
 			if engine not in ("google", "linkedin", "pgp", "all","google-profiles","exalead","bing","bing_api","yandex"):
 				usage()
-				print "Invalid search engine, try with: bing, google, linkedin, pgp"
+				print "Motor de busca invalido, utilize: bing, google, linkedin, pgp"
 				sys.exit()
 			else:
 				pass
 	if engine == "google":
-		print "[-] Searching in Google:"
+		print "[-] Pesquisando no Google:"
 		search=googlesearch.search_google(word,limit,start)
 		search.process()
 		all_emails=search.get_emails()
@@ -75,7 +75,7 @@ def start(argv):
 		all_emails=search.get_emails()
 		all_hosts=search.get_hostnames()
 	elif engine == "bing" or engine =="bingapi":	
-		print "[-] Searching in Bing:"
+		print "[-] Pesquisando no Bing:"
 		search=bingsearch.search_bing(word,limit,start)
 		if engine =="bingapi":
 			bingapi="yes"
@@ -85,33 +85,33 @@ def start(argv):
 		all_emails=search.get_emails()
 		all_hosts=search.get_hostnames()
 	elif engine == "yandex":# Not working yet
-		print "[-] Searching in Yandex:"
+		print "[-] Pesquisando no Yandex:"
 		search=yandexsearch.search_yandex(word,limit,start)
 		search.process()
 		all_emails=search.get_emails()
 		all_hosts=search.get_hostnames()
 	elif engine == "pgp":
-		print "[-] Searching in PGP key server.."
+		print "[-] Pesquisando PGP key server..."
 		search=pgpsearch.search_pgp(word)
 		search.process()
 		all_emails=search.get_emails()
 		all_hosts=search.get_hostnames()
 	elif engine == "linkedin":
-		print "[-] Searching in Linkedin.."
+		print "[-] Pesquisando no Linkedin.."
 		search=linkedinsearch.search_linkedin(word,limit)
 		search.process()
 		people=search.get_people()
-		print "Users from Linkedin:"
+		print "Usuarios no Linkedin:"
 		print "===================="
 		for user in people:
 			print user
 		sys.exit()
 	elif engine == "google-profiles":
-		print "[-] Searching in Google profiles.."
+		print "[-] Pesquisando no Google profiles.."
 		search=googlesearch.search_google(word,limit,start)
 		search.process_profiles()
 		people=search.get_profiles()
-		print "Users from Google profiles:"
+		print "Usuarios no Google profiles:"
 		print "---------------------------"
 		for users in people:
 			print users
@@ -121,21 +121,21 @@ def start(argv):
 		all_emails=[]
 		all_hosts=[]
 		virtual = "basic"
-		print "[-] Searching in Google.."
+		print "[-] Pesquisando no Google..."
 		search=googlesearch.search_google(word,limit,start)
 		search.process()
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
 		all_emails.extend(emails)
 		all_hosts.extend(hosts)
-		print "[-] Searching in PGP Key server.."
+		print "[-] Pesquisando PGP Key server..."
 		search=pgpsearch.search_pgp(word)
 		search.process()
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
 		all_hosts.extend(hosts)
 		all_emails.extend(emails)
-		print "[-] Searching in Bing.."
+		print "[-] Pesquisando no Bing.."
 		bingapi="yes"
 		search=bingsearch.search_bing(word,limit,start)
 		search.process(bingapi)
@@ -151,17 +151,17 @@ def start(argv):
 		all_hosts.extend(hosts)
 		all_emails.extend(emails)
 
-	print "\n[+] Emails found:"
+	print "\n[+] Emails encontrados:"
 	print " -------------"
 	if all_emails ==[]:
-		print "No emails found"
+		print "Nao foi encontrado nenhum email."
 	else:
 		for emails in all_emails:
 			print emails 
-	print "\n[+] Hosts found"
+	print "\n[+] Hosts encontrados:"
 	print " -----------"
 	if all_hosts == []:
-		print "No hosts found"
+		print "Nao foi encontrado nenhum host."
 	else:
 		full_host=hostchecker.Checker(all_hosts)
 		full=full_host.check()
@@ -202,16 +202,16 @@ def start(argv):
 		pass
 	if filename!="":
 		file = open(filename,'w')
-		file.write('<theHarvester>')
+		file.write('<stalker>')
 		for x in all_emails:
 			file.write('<email>'+x+'</email>')
 		for x in all_hosts:
 			file.write('<host>'+x+'</host>')
 		for x in vhosts:
 			file.write('<vhost>'+x+'</vhost>')
-		file.write('</theHarvester>')
+		file.write('</stalker>')
 		file.close
-		print "Results saved in: "+ filename
+		print "Resultados salvos em: "+ filename
 	else:
 		pass
 
@@ -219,7 +219,7 @@ def start(argv):
 if __name__ == "__main__":
         try: start(sys.argv[1:])
 	except KeyboardInterrupt:
-		print "Search interrupted by user.."
+		print "Busca interrompida pelo usuario!"
 	except:
 		sys.exit()
 
