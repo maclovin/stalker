@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-Created by laramies on 2008-08-21.
+Created by laramies and refactored by Murilo Prestes.
 """
 
 import sys
